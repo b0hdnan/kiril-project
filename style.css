@@ -110,10 +110,10 @@ footer,
 }
 
 
-/* Для Firefox */
+/* прокрутка */
 html {
 	scrollbar-width: thin;
-	scrollbar-color: #4a90e2 #f0f0f0;
+	scrollbar-color: #28a745 #f0f0f0;
 }
 
 /* Для Webkit браузерів */
@@ -127,12 +127,12 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-	background: #4a90e2;
+	background: #28a745;;
 	border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-	background: #357abd;
+	background: #28a745;;
 }
 
 
