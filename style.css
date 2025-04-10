@@ -1,6 +1,11 @@
 body{
 	background: #000;
 }
+.logo{
+  height: 60px;
+  width: 60px;
+  border-radius: 10px;
+}
 
 #scroll-animate
 
