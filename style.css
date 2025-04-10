@@ -39,8 +39,8 @@
 
 }
 
-.nav{
-	height: 100px !important;
+.navbar{
+	line-height: normal !important;
 }
 
 footer
@@ -55,8 +55,6 @@ footer
 
 .content
 {
-  height: 1000px;
-  min-height: 1000px;
   background: #ededed;
   position: relative;
   z-index: 1;
@@ -70,7 +68,6 @@ footer
 
 h1{
   width: 100%;
-  height: 100%;
   padding: 0;
   margin: 0;
   text-transform: uppercase;
@@ -78,18 +75,6 @@ h1{
   font-family: Helvetica;
   font-size: 150px;
   color: #fff;
-}
-
-header h1{}
-
-.content h1{
-  line-height: 1000px;
-  color: #999;
-}
-
-footer h1
-{
-  line-height: 300px;
 }
 
 header,
