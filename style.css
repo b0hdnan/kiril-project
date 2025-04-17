@@ -45,9 +45,8 @@ body{
   height: 100px !important;
   top: 0;
   position: fixed;
-  z-index: -1;
+  z-index: 2;
 	padding: 25px;
-
 }
 
 .navbar{
@@ -72,9 +71,9 @@ footer
 }
 
 .wrapper-parallax {
-  margin-top: 100%;
-  margin-bottom: 300px;
+	margin: 0;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+	height: 20000px;
 }
 
 h1{
@@ -130,6 +129,94 @@ html {
 ::-webkit-scrollbar-thumb:hover {
 	background: #28a745;;
 }
+main{
+	position: fixed;
+	width: 100%;
+	top: 0;
+	z-index: 1;
+}
+/* hero-section */
 
+body {
+	margin: 0;
+	font-family: Arial, sans-serif;
+	overflow-x: hidden; /* Уникаємо горизонтального скролбару */
+}
 
+.hero-section {
+	height: 100dvh;
+	min-height: 100dvh;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+	box-sizing: border-box;
+}
+
+.background-layer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+	background-position: center;
+}
+
+.background-layer-1 {
+	background: url('./src/img/hero_rusty_desktop.webp');
+	z-index: 1;
+}
+
+.background-layer-2 {
+	background: url('./src/img/hero_clean_desktop.webp');
+	z-index: 2;
+	clip-path: inset(100% 0 0 0);
+	transition: clip-path 0s linear;
+}
+
+.laser {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	width: 100%;
+	height: 5px;
+	background: linear-gradient(90deg, transparent, #ff8c00, transparent);
+	box-shadow: 0 0 20px #ff8c00, 0 0 40px #ff8c00;
+	z-index: 3;
+}
+
+.content {
+	text-align: center;
+	color: #fff;
+	opacity: 0;
+	z-index: 4;
+	transition: opacity 0.5s ease-in;
+}
+
+.content h1 {
+	font-size: 3rem;
+	margin: 0;
+	text-transform: uppercase;
+}
+
+.content p {
+	font-size: 1.5rem;
+}
+
+.placeholder {
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #f0f0f0;
+}
+.site-content{
+	height: fit-content;
+	position: relative;
+	z-index: 5;
+	background: #000;
+	padding: 40px;
+}
 
