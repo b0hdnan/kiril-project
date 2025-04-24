@@ -6,20 +6,24 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Iron metal</title>
 	<!-- bootswatch -->
-	<link rel="stylesheet" href="./src/bootstrap/bootstrap.min.css">
+	<link rel="stylesheet" href="./src/bootstrap/bootstrap.min_dark.css">
 	<link rel="stylesheet" href="style.css">
 	<link rel="shortcut icon" href="favicon.png" type="image/x-icon">
 
 </head>
 
 <body>
+	<!-- Прелоадер -->
+	<div class="loader" id="loader">
+		<div class="spinner"></div>
+	</div>
 	<div class="container-fluid">
 		<div id="scroll-animate">
 			<div id="scroll-animate-main">
 				<div class="wrapper-parallax">
 					<header class="header">
 						<nav class="navbar navbar-expand-lg bg-body-tertiary">
-							<div class="container">
+							<div class="container flex">
 								<a class="navbar-brand" href="#">
 									<img src="./src/img/logo.jpg" class="logo" alt="">
 								</a>
@@ -56,7 +60,6 @@
 									</ul>
 									<form class="d-flex" role="search">
 										<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-										<button class="btn btn-outline-success" type="submit">Search</button>
 									</form>
 								</div>
 							</div>
@@ -69,19 +72,31 @@
 							<div class="laser"></div>
 							<div class="content">
 							</div>
-					</section>
+						</section>
 					</main>
 
-					<section class="site-content">
-						<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sint minus ab id illum ex unde nisi quidem
-							porro, alias a ipsam saepe, officia consequatur tenetur culpa, in eligendi soluta. Quaerat eum dolorem
-							itaque magni quos deserunt voluptatum deleniti accusamus perspiciatis veritatis ratione, eligendi, sed
-							ipsa quis delectus. Ea minima cumque veniam recusandae? Ipsam vel recusandae reprehenderit deleniti at et
-							impedit totam, aut enim nihil molestiae suscipit? Assumenda quis deserunt recusandae? Dolores nisi
-</p>
-
-					</section>
-
+					<div class="main-content">
+						<section class="cards">
+							<div class="card">
+								<div class="title">High-Quality Furniture Just For You</div>
+								<div class="text">Our furniture is made from selected and best quality materials that are suitable for
+									your dream home</div>
+								<button>Shop Now</button>
+							</div>
+							<div class="card">
+								<div class="title">High-Quality Furniture Just For You</div>
+								<div class="text">Our furniture is made from selected and best quality materials that are suitable for
+									your dream home</div>
+								<button>Shop Now</button>
+							</div>
+							<div class="card">
+								<div class="title">High-Quality Furniture Just For You</div>
+								<div class="text">Our furniture is made from selected and best quality materials that are suitable for
+									your dream home</div>
+								<button>Shop Now</button>
+							</div>
+						</section>
+					</div>
 					<footer>
 						<h1>Footer</h1>
 					</footer>
@@ -90,7 +105,8 @@
 		</div>
 
 	</div>
-	<script src="script.js"></script>
+	<script defer src="script.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

@@ -1,103 +1,111 @@
-function scrollFooter(scrollY, heightFooter) {
-	console.log(scrollY);
-	console.log(heightFooter);
-
-	const footer = document.querySelector('footer');
-
-	if (scrollY >= heightFooter) {
-			footer.style.bottom = '0px';
-	} else {
-			footer.style.bottom = `-${heightFooter}px`;
-	}
-}
-
-window.addEventListener('load', function() {
-	const windowHeight = window.innerHeight;
-	const footer = document.querySelector('footer');
-	const footerHeight = footer.offsetHeight;
-	const content = document.querySelector('.site-content'); // Змінюємо на .site-content
-	const heightDocument = windowHeight + content.offsetHeight + footerHeight - 20;
-
-	console.log('windowHeight:', windowHeight);
-	console.log('content.offsetHeight:', content.offsetHeight);
-	console.log('footerHeight:', footerHeight);
-	console.log('heightDocument:', heightDocument);
-
-	// Definindo o tamanho do elemento pra animar
-	const scrollAnimate = document.getElementById('scroll-animate');
-	const scrollAnimateMain = document.getElementById('scroll-animate-main');
-	scrollAnimate.style.height = `${heightDocument}px`;
-	scrollAnimateMain.style.height = `${heightDocument}px`;
-
-	// Definindo o tamanho dos elementos header e conteúdo
-	const header = document.querySelector('header');
-	header.style.height = `${windowHeight}px`;
-	header.style.lineHeight = `${windowHeight}px`;
-
-	const wrapperParallax = document.querySelector('.wrapper-parallax');
-	wrapperParallax.style.marginTop = `${windowHeight}px`;
-
-	scrollFooter(window.scrollY, footerHeight);
-
-	// ao dar rolagem
-	window.onscroll = function() {
-			const scroll = window.scrollY;
-			const heroSection = document.querySelector('.hero-section');
-			const heroSectionHeight = heroSection.offsetHeight;
-
-			// Розраховуємо позицію лазера
-			const laserPosition = Math.max(100 - (scroll / heroSectionHeight) * 100, 0);
-
-			// Обчислюємо максимальну прокрутку
-			const maxScroll = heightDocument - windowHeight;
-
-			// Затримуємо рух #scroll-animate-main, поки лазер не досягне top: 0%
-			if (laserPosition > 0) {
-					scrollAnimateMain.style.top = `0px`; // Фіксуємо на місці
-			} else {
-					// Після того, як лазер досяг top: 0%, дозволяємо прокрутку до кінця
-					const remainingScroll = scroll - heroSectionHeight; // Скільки прокрутили після heroSection
-					const remainingDocumentHeight = heightDocument - heroSectionHeight - windowHeight; // Загальна висота після heroSection
-					const scrollFraction = remainingScroll / remainingDocumentHeight; // Частка прокрутки
-					const adjustedScroll = scrollFraction * maxScroll; // Масштабуємо рух
-
-					// Обмежуємо рух, щоб не перевищити максимальну прокрутку
-					scrollAnimateMain.style.top = `-${Math.min(adjustedScroll, maxScroll)}px`;
-			}
-
-			header.style.backgroundPositionY = `${50 - (scroll * 100 / heightDocument)}%`;
-
-			scrollFooter(scroll, footerHeight);
-	};
+// Preloader handling: Hides the preloader after page load
+window.addEventListener('load', () => {
+	const loader = document.getElementById('loader');
+	loader.classList.add('hidden');
+	// Remove preloader from DOM after transition
+	setTimeout(() => {
+			loader.style.display = 'none';
+	}, 500); // Matches CSS transition duration
 });
 
+// Hero section animation: Animates laser, background clip-path, and content opacity
 function animate() {
 	const laser = document.querySelector('.laser');
-	const content = document.querySelector('.hero-section .content'); // Уточнюємо, що це .content всередині .hero-section
+	const content = document.querySelector('.hero-section .content');
 	const secondBackground = document.querySelector('.background-layer-2');
-	const scrollPosition = window.scrollY;
 	const heroSection = document.querySelector('.hero-section');
 	const heroSectionHeight = heroSection.offsetHeight;
 
-	// Розраховуємо позицію лазера
-	const laserPosition = Math.max(100 - (scrollPosition / heroSectionHeight) * 100, 0);
-
-	// Оновлюємо позицію лазера
-	laser.style.top = `${laserPosition}%`;
-
-	// Синхронно оновлюємо clip-path другого фону
-	secondBackground.style.clipPath = `inset(${laserPosition}% 0 0 0)`;
-
-	// Показуємо контент, коли лазер доходить до середини
-	if (laserPosition < 50) {
-			content.style.opacity = '1';
-	} else {
-			content.style.opacity = '0';
+	function updateAnimation(scrollPosition) {
+			// Calculate laser position as a percentage
+			const laserPosition = Math.max(100 - (scrollPosition / heroSectionHeight) * 100, 0);
+			laser.style.top = `${laserPosition}%`;
+			secondBackground.style.clipPath = `inset(${laserPosition}% 0 0 0)`;
+			// Show content when laser is past halfway
+			content.style.opacity = laserPosition < 50 ? '1' : '0';
 	}
 
-	// Продовжуємо анімацію
+	// Update animation based on scroll position
+	window.addEventListener('scroll', () => {
+			updateAnimation(window.scrollY);
+	});
+
+	// Continue animation loop
 	requestAnimationFrame(animate);
 }
 
-// Запускаємо анімацію
-requestAnimationFrame(animate);
+// Parallax and footer visibility with Intersection Observer
+function setupParallax() {
+	const windowHeight = window.innerHeight;
+	const footer = document.querySelector('footer');
+	const footerHeight = footer.offsetHeight;
+	const content = document.querySelector('.main-content');
+	const heightDocument = windowHeight + content.offsetHeight + footerHeight - 20;
+
+	// Set up parallax elements
+	const scrollAnimate = document.getElementById('scroll-animate');
+	const scrollAnimateMain = document.getElementById('scroll-animate-main');
+	const header = document.querySelector('header');
+	const wrapperParallax = document.querySelector('.wrapper-parallax');
+
+	// Configure element heights
+	scrollAnimate.style.height = `${heightDocument}px`;
+	scrollAnimateMain.style.height = `${heightDocument}px`;
+	header.style.height = `${windowHeight}px`;
+	header.style.lineHeight = `${windowHeight}px`;
+	wrapperParallax.style.marginTop = `${windowHeight}px`;
+
+	// Function to update footer position
+	function updateFooter(scrollY) {
+			footer.style.bottom = scrollY >= footerHeight ? '0px' : `-${footerHeight}px`;
+	}
+
+	// Intersection Observer for parallax effect
+	const heroSection = document.querySelector('.hero-section');
+	const heroSectionHeight = heroSection.offsetHeight;
+	const maxScroll = heightDocument - windowHeight;
+
+	const observer = new IntersectionObserver(
+			(entries, observer) => {
+					entries.forEach((entry) => {
+							const scrollY = window.scrollY;
+							const laserPosition = Math.max(100 - (scrollY / heroSectionHeight) * 100, 0);
+
+							// Handle scroll-animate-main movement for main content scrolling
+							if (laserPosition > 0) {
+									scrollAnimateMain.style.top = `0px`; // Fix position during laser animation
+							} else {
+									// Calculate scroll after hero section for smooth content scrolling
+									const remainingScroll = scrollY - heroSectionHeight;
+									const remainingDocumentHeight = heightDocument - heroSectionHeight - windowHeight;
+									const scrollFraction = remainingScroll / remainingDocumentHeight;
+									const adjustedScroll = scrollFraction * maxScroll;
+									scrollAnimateMain.style.top = `-${Math.min(adjustedScroll, maxScroll)}px`;
+							}
+
+							// Update header background position for parallax
+							header.style.backgroundPositionY = `${50 - (scrollY * 100 / heightDocument)}%`;
+
+							// Update footer position
+							updateFooter(scrollY);
+					});
+			},
+			{
+					root: null,
+					threshold: Array.from({ length: 101 }, (_, i) => i / 100), // Fine-grained thresholds for smooth updates
+					rootMargin: `0px 0px -${windowHeight}px 0px`
+			}
+	);
+
+	// Observe the entire document wrapper for continuous scroll updates
+	observer.observe(wrapperParallax);
+
+	// Initial footer position
+	updateFooter(window.scrollY);
+}
+
+// Initialize animations and parallax on load
+window.addEventListener('load', () => {
+	setupParallax();
+	requestAnimationFrame(animate);
+});
