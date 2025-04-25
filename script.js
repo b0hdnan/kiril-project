@@ -91,9 +91,7 @@ function animate() {
 	// Показуємо контент, коли лазер доходить до середини
 	if (laserPosition < 50) {
 			content.style.opacity = '1';
-	} else {
-			content.style.opacity = '0';
-	}
+	} 
 
 	// Продовжуємо анімацію
 	requestAnimationFrame(animate);
@@ -101,3 +99,17 @@ function animate() {
 
 // Запускаємо анімацію
 requestAnimationFrame(animate);
+
+
+let scrollTimeout;
+
+window.addEventListener('scroll', () => {
+  // Додаємо клас "scrolling" до body під час прокрутки
+  document.body.classList.add('scrolling');
+  
+  // Видаляємо клас після завершення прокрутки
+  clearTimeout(scrollTimeout);
+  scrollTimeout = setTimeout(() => {
+    document.body.classList.remove('scrolling');
+  }, 150); // Затримка 150 мс
+});

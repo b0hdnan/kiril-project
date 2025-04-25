@@ -1,149 +1,192 @@
-body{
-	background: #000;
-}
-.logo{
-  height: 60px;
-  width: 60px;
-  border-radius: 10px;
-}
-
-#scroll-animate
-
-{
-  overflow: hidden;
-}
-
-#scroll-animate-main
-{
-  width: 100%;
-  left: 0;
-  position: fixed;
-}
-
-#heightPage,
-#heightScroll
-{
-  width: 10px;
-  top: 0;
-  position: absolute;
-  z-index: 99;
-}
-
-#heightPage
-{
-  left: 0;
-}
-
-#heightScroll
-{
-  right: 0;
-}
-
-.header
-{
-  width: 100%;
-  height: 100px !important;
-  top: 0;
-  position: fixed;
-  z-index: 2;
-	padding: 25px;
-}
-
-.navbar{
-	line-height: normal !important;
-}
-
-footer
-{
-  width: 100%;
-  height: 100vh;
-  background: gray;
-  bottom: -300px;
-  position: fixed;
-  z-index: -1;
-}
-
-.content
-{
-  background: #ededed;
-  position: relative;
-  z-index: 1;
-}
-
-.wrapper-parallax {
-	margin: 0;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
-	height: 20000px;
-}
-
-h1{
-  width: 100%;
-  padding: 0;
-  margin: 0;
-  text-transform: uppercase;
-  text-align: center;
-  font-family: Helvetica;
-  font-size: 150px;
-  color: #fff;
-}
-
-header,
-footer,
-#scroll-animate-main
-{
-  -webkit-transition-property: all;
-     -moz-transition-property: all;
-      transition-property: all;
-
-  -webkit-transition-duration: 0.4s;
-     -moz-transition-duration: 0.4s;
-      transition-duration: 0.4s;
-
-  -webkit-transition-timing-function: cubic-bezier(0, 0, 0, 1);
-     -moz-transition-timing-function: cubic-bezier(0, 0, 0, 1);
-      transition-timing-function: cubic-bezier(0, 0, 0, 1);
-}
-
-
-/* прокрутка */
-html {
-	scrollbar-width: thin;
-	scrollbar-color: #28a745 #f0f0f0;
-}
-
-/* Для Webkit браузерів */
-::-webkit-scrollbar {
-	width: 10px;
-}
-
-::-webkit-scrollbar-track {
-	background: #f0f0f0;
-	border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb {
-	background: #28a745;;
-	border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-	background: #28a745;;
-}
-main{
-	position: fixed;
-	width: 100%;
-	top: 0;
-	z-index: 1;
-}
-/* hero-section */
+@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;600;800;900&display=swap);
 
 body {
+  font-family: 'Roboto', sans-serif !important;
+}
+
+a, input, button, select, textarea {
+  font-family: 'Roboto', sans-serif !important;
+  font-weight: 400 !important;
+  font-size: 16px !important;
+  line-height: 24px !important;
+  color: #fff !important;
+}
+
+/* Загальні стилі */
+
+body {
+	background: #000;
 	margin: 0;
 	font-family: Arial, sans-serif;
 	overflow-x: hidden; /* Уникаємо горизонтального скролбару */
-}
+	overflow-y: auto; /* Дозволяємо вертикальну прокрутку */
+  }
+  
+  h1 {
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	text-transform: uppercase;
+	text-align: center;
+	font-family: Helvetica;
+	font-size: 150px;
+	color: #fff;
+  }
+  
+  /* Логотип */
+  .logo {
+	height: 60px;
+	width: 60px;
+	border-radius: 10px;
+  }
+  
+  /* Стилі для скролбара */
+  ::-webkit-scrollbar {
+	width: 12px; /* Ширина скролбара */
+  }
+  
+  ::-webkit-scrollbar-track {
+	background: #1a1a1a; /* Темний фон треку */
+	border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+	background: linear-gradient(90deg, #00aaff, #ffffff, #00aaff); /* Градієнт, як у лазера */
+	background-size: 200% 100%;
+	border-radius: 10px;
+	box-shadow: 
+	  0 0 10px #00aaff, 
+	  0 0 20px #ffffff; /* Сяйво */
+  }
+  
+  /* Анімація скролбара під час прокрутки */
+  body.scrolling ::-webkit-scrollbar-thumb {
+	animation: 
+	  laser-glow 3s linear infinite, /* Такий самий рух градієнта, як у лазера */
+	  laser-pulse 1.5s ease-in-out infinite; /* Така сама пульсація, як у лазера */
+	box-shadow: 
+	  0 0 20px 2px #00aaff, 
+	  0 0 40px 4px #ffffff, 
+	  0 0 60px 6px #00aaff; /* Посилене сяйво, як у лазера */
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+	background: linear-gradient(90deg, #66ccff, #ffffff, #66ccff); /* Зміна при наведенні */
+  }
+  
+  /* Для Firefox */
+  * {
+	scrollbar-color: #00aaff #1a1a1a;
+  }
+  
+  /* Анімація прокрутки */
+  #scroll-animate {
+	overflow-y: auto; /* Дозволяємо прокрутку */
+	overflow-x: hidden;
+  }
+  
+  #scroll-animate-main {
+	width: 100%;
+	left: 0;
+	position: fixed;
+  }
+  
+  #heightPage,
+  #heightScroll {
+	width: 10px;
+	top: 0;
+	position: absolute;
+	z-index: 99;
+  }
+  
+  #heightPage {
+	left: 0;
+  }
+  
+  #heightScroll {
+	right: 0;
+  }
+  
+  /* Хедер */
+  .header {
+	width: 100%;
+	height: 100px !important;
+	top: 0;
+	position: fixed;
+	z-index: 2;
+	padding: 25px;
+  }
+  
+  .navbar {
+	background: #ffffff1b !important;
+	line-height: normal !important;
+	border-radius: 0 !important;
+	border: none !important;
+  }
+  [type="search"] {
+	background: #ffffff1b !important;
+	border-radius: 0 !important;
+	
+  }
+  .navbar-toggler{
+	width: fit-content;
+	border: none !important;
+  }
+  .navbar-toggler:hover{
+	background: none !important;
+  }
+  .navbar-toggler:focus{
+	border: none !important;
+	outline: none !important;
+  }
 
-.hero-section {
+  input[type="search"]::-webkit-search-cancel-button {
+	-webkit-appearance: none; /* Скидаємо стандартний вигляд */
+	height: 16px;
+	width: 16px;
+	background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>') no-repeat center;
+	background-size: contain;
+	cursor: pointer;
+  }
+  
+  /* Футер */
+  footer {
+	width: 100%;
+	height: 100vh;
+	background: gray;
+	bottom: -300px;
+	position: fixed;
+	z-index: -1;
+  }
+  
+  /* Контент */
+  .content {
+	position: relative;
+	z-index: 1;
+	text-align: center;
+	color: #fff;
+	transition: opacity 0.5s ease-in;
+  }
+  
+  .content h1 {
+	font-size: 3rem;
+	margin: 0;
+	text-transform: uppercase;
+  }
+  
+  .content p {
+	font-size: 1.5rem;
+  }
+  
+  /* Паралакс */
+  .wrapper-parallax {
+	margin: 0;
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+	height: 20000px;
+  }
+  
+  /* Hero Section */
+  .hero-section {
 	height: 100dvh;
 	min-height: 100dvh;
 	position: relative;
@@ -152,9 +195,9 @@ body {
 	align-items: center;
 	overflow: hidden;
 	box-sizing: border-box;
-}
-
-.background-layer {
+  }
+  
+  .background-layer {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -162,65 +205,81 @@ body {
 	height: 100%;
 	background-size: cover;
 	background-position: center;
-}
-
-.background-layer-1 {
+  }
+  
+  .background-layer-1 {
 	background: url('./src/img/02_1.jpg');
 	background-size: cover;
 	z-index: 1;
-}
-
-.background-layer-2 {
+  }
+  
+  .background-layer-2 {
 	background: url('./src/img/02.jpg');
 	background-size: cover;
 	z-index: 2;
 	clip-path: inset(100% 0 0 0);
 	transition: clip-path 0s linear;
-}
-
-.laser {
+  }
+  
+  .laser {
 	position: absolute;
 	top: 100%;
 	left: 0;
 	width: 100%;
-	height: 5px;
-	background: linear-gradient(90deg, transparent, #ff8c00, transparent);
-	box-shadow: 0 0 20px #ff8c00, 0 0 40px #ff8c00;
+	height: 6px;
+	background: linear-gradient(90deg, #00aaff, #ffffff, #00aaff);
+	background-size: 200% 100%;
+	animation: 
+	  laser-glow 3s linear infinite,
+	  laser-pulse 1.5s ease-in-out infinite;
+	box-shadow: 
+	  0 0 20px 2px #00aaff,
+	  0 0 40px 4px #ffffff,
+	  0 0 60px 6px #00aaff;
 	z-index: 3;
-}
-
-.content {
-	text-align: center;
-	color: #fff;
-	opacity: 0;
-	z-index: 4;
-	transition: opacity 0.5s ease-in;
-}
-
-.content h1 {
-	font-size: 3rem;
-	margin: 0;
-	text-transform: uppercase;
-}
-
-.content p {
-	font-size: 1.5rem;
-}
-
-.placeholder {
+  }
+  
+  /* Анімація руху градієнта */
+  @keyframes laser-glow {
+	0% {
+	  background-position: 0% 50%;
+	}
+	100% {
+	  background-position: 200% 50%;
+	}
+  }
+  
+  /* Анімація пульсації */
+  @keyframes laser-pulse {
+	0%, 100% {
+	  opacity: 1;
+	  transform: scaleY(1);
+	}
+	50% {
+	  opacity: 0.7;
+	  transform: scaleY(1.2);
+	}
+  }
+  
+  /* Placeholder */
+  .placeholder {
 	height: 100vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	background: #f0f0f0;
-}
-.site-content{
+  }
+  
+  /* Основний контент */
+  .site-content {
 	height: fit-content;
 	position: relative;
 	z-index: 5;
 	padding: 40px;
-}
-.cards {
+  }
+  
+  /* Карточки */
+  .cards {
 	display: flex;
 	justify-content: center;
 	gap: 10px;
@@ -229,13 +288,12 @@ body {
 	position: relative;
 	z-index: 5;
 	padding: 25px;
-}
-
-.card {
+  }
+  
+  .card {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-
 	justify-content: space-between;
 	width: 450px;
 	height: 500px;
@@ -244,25 +302,26 @@ body {
 	border: none;
 	box-shadow: 2px 2px 10px white;
 	padding: 35px;
-}
-
-.title {
+  }
+  
+  .title {
 	font-family: Roboto;
 	font-weight: 700;
 	font-size: 56px;
 	line-height: 120%;
 	letter-spacing: 0%;
-}
-
-.text {
+  }
+  
+  .text {
 	font-family: Roboto Condensed;
 	font-weight: 500;
 	font-size: 20px;
 	line-height: 150%;
 	letter-spacing: 0%;
-}
-
-button {
+  }
+  
+  /* Кнопки */
+  button {
 	width: 374px;
 	height: 78px;
 	font-family: Roboto Condensed;
@@ -270,11 +329,34 @@ button {
 	font-size: 20px;
 	line-height: 150%;
 	letter-spacing: 0%;
-	background: #E89F71;
+	background: #a3c6d6;
 	border: none;
 	transition: all .3s ease-in-out;
-}
-button:hover{
-	background: #089F71;
+  }
+  
+  button:hover {
+	background: #00aaff;
 	color: white;
-}
+  }
+  
+  /* Анімації */
+  header,
+  footer,
+  #scroll-animate-main {
+	-webkit-transition-property: all;
+	-moz-transition-property: all;
+	transition-property: all;
+	-webkit-transition-duration: 0.4s;
+	-moz-transition-duration: 0.4s;
+	transition-duration: 0.4s;
+	-webkit-transition-timing-function: cubic-bezier(0, 0, 0, 1);
+	-moz-transition-timing-function: cubic-bezier(0, 0, 0, 1);
+	transition-timing-function: cubic-bezier(0, 0, 0, 1);
+  }
+  
+  main {
+	position: fixed;
+	width: 100%;
+	top: 0;
+	z-index: 1;
+  }
