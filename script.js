@@ -1,74 +1,59 @@
-function scrollFooter(scrollY, heightFooter) {
-	console.log(scrollY);
-	console.log(heightFooter);
+function scrollFooter(scrollY, heightFooter, contentHeight, windowHeight) {
+    const footer = document.querySelector('footer');
+    const threshold = contentHeight + windowHeight - heightFooter; // Точка, де футер з’являється
 
-	const footer = document.querySelector('footer');
-
-	if (scrollY >= heightFooter) {
-			footer.style.bottom = '0px';
-	} else {
-			footer.style.bottom = `-${heightFooter}px`;
-	}
+    if (scrollY >= threshold) {
+        footer.style.bottom = '0px';
+    } else {
+        footer.style.bottom = `-${heightFooter}px`;
+    }
 }
 
 window.addEventListener('load', function() {
-	const windowHeight = window.innerHeight;
-	const footer = document.querySelector('footer');
-	const footerHeight = footer.offsetHeight;
-	const content = document.querySelector('.site-content'); // Змінюємо на .site-content
-	const heightDocument = windowHeight + content.offsetHeight + footerHeight - 20;
+    const windowHeight = window.innerHeight;
+    const footer = document.querySelector('footer');
+    const footerHeight = footer.offsetHeight;
+    const content = document.querySelector('.site-content');
+    const contentHeight = content.offsetHeight;
+    const heightDocument = windowHeight + contentHeight + footerHeight - 20;
 
-	console.log('windowHeight:', windowHeight);
-	console.log('content.offsetHeight:', content.offsetHeight);
-	console.log('footerHeight:', footerHeight);
-	console.log('heightDocument:', heightDocument);
+    const scrollAnimate = document.getElementById('scroll-animate');
+    const scrollAnimateMain = document.getElementById('scroll-animate-main');
+    scrollAnimate.style.height = `${heightDocument}px`;
+    scrollAnimateMain.style.height = `${heightDocument}px`;
 
-	// Definindo o tamanho do elemento pra animar
-	const scrollAnimate = document.getElementById('scroll-animate');
-	const scrollAnimateMain = document.getElementById('scroll-animate-main');
-	scrollAnimate.style.height = `${heightDocument}px`;
-	scrollAnimateMain.style.height = `${heightDocument}px`;
+    const header = document.querySelector('header');
+    header.style.height = `${windowHeight}px`;
+    header.style.lineHeight = `${windowHeight}px`;
 
-	// Definindo o tamanho dos elementos header e conteúdo
-	const header = document.querySelector('header');
-	header.style.height = `${windowHeight}px`;
-	header.style.lineHeight = `${windowHeight}px`;
+    const wrapperParallax = document.querySelector('.wrapper-parallax');
+    wrapperParallax.style.marginTop = `${windowHeight}px`;
 
-	const wrapperParallax = document.querySelector('.wrapper-parallax');
-	wrapperParallax.style.marginTop = `${windowHeight}px`;
+    scrollFooter(window.scrollY, footerHeight, contentHeight, windowHeight);
 
-	scrollFooter(window.scrollY, footerHeight);
+    window.onscroll = function() {
+        const scroll = window.scrollY;
+        const heroSection = document.querySelector('.hero-section');
+        const heroSectionHeight = heroSection.offsetHeight;
 
-	// ao dar rolagem
-	window.onscroll = function() {
-			const scroll = window.scrollY;
-			const heroSection = document.querySelector('.hero-section');
-			const heroSectionHeight = heroSection.offsetHeight;
+        const laserPosition = Math.max(100 - (scroll / heroSectionHeight) * 100, 0);
 
-			// Розраховуємо позицію лазера
-			const laserPosition = Math.max(100 - (scroll / heroSectionHeight) * 100, 0);
+        const maxScroll = heightDocument - windowHeight;
 
-			// Обчислюємо максимальну прокрутку
-			const maxScroll = heightDocument - windowHeight;
+        if (laserPosition > 0) {
+            scrollAnimateMain.style.top = `0px`;
+        } else {
+            const remainingScroll = scroll - heroSectionHeight;
+            const remainingDocumentHeight = heightDocument - heroSectionHeight - windowHeight;
+            const scrollFraction = remainingScroll / remainingDocumentHeight;
+            const adjustedScroll = scrollFraction * maxScroll;
+            scrollAnimateMain.style.top = `-${Math.min(adjustedScroll, maxScroll)}px`;
+        }
 
-			// Затримуємо рух #scroll-animate-main, поки лазер не досягне top: 0%
-			if (laserPosition > 0) {
-					scrollAnimateMain.style.top = `0px`; // Фіксуємо на місці
-			} else {
-					// Після того, як лазер досяг top: 0%, дозволяємо прокрутку до кінця
-					const remainingScroll = scroll - heroSectionHeight; // Скільки прокрутили після heroSection
-					const remainingDocumentHeight = heightDocument - heroSectionHeight - windowHeight; // Загальна висота після heroSection
-					const scrollFraction = remainingScroll / remainingDocumentHeight; // Частка прокрутки
-					const adjustedScroll = scrollFraction * maxScroll; // Масштабуємо рух
+        header.style.backgroundPositionY = `${50 - (scroll * 100 / heightDocument)}%`;
 
-					// Обмежуємо рух, щоб не перевищити максимальну прокрутку
-					scrollAnimateMain.style.top = `-${Math.min(adjustedScroll, maxScroll)}px`;
-			}
-
-			header.style.backgroundPositionY = `${50 - (scroll * 100 / heightDocument)}%`;
-
-			scrollFooter(scroll, footerHeight);
-	};
+        scrollFooter(scroll, footerHeight, contentHeight, windowHeight);
+    };
 });
 
 function animate() {
@@ -112,4 +97,15 @@ window.addEventListener('scroll', () => {
   scrollTimeout = setTimeout(() => {
     document.body.classList.remove('scrolling');
   }, 150); // Затримка 150 мс
+});
+
+
+
+// toggle menu
+const menuToggle = document.querySelector('.menu-toggle');
+const navbarCollapse = document.querySelector('#navbarSupportedContent');
+
+menuToggle.addEventListener('click', () => {
+    menuToggle.classList.toggle('open');
+    navbarCollapse.classList.toggle('show'); // Або інший клас, який використовує Bootstrap для відображення меню
 });
