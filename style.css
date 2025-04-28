@@ -232,6 +232,7 @@ footer {
 	color: #fff;
 	transition: opacity 0.5s ease-in;
 	padding: 50px;
+	width: 100%;
 }
 
 .content h1 {
