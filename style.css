@@ -1,5 +1,7 @@
 @import url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;600;800;900&display=swap);
-
+*{
+	user-select: none;
+}
 body {
 	font-family: 'Roboto', sans-serif !important;
 }
@@ -270,24 +272,27 @@ footer {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-size: cover;
-	background-position: center;
+ 
 }
 
 .background-layer-1 {
-	background: url('./src/img/02_1.jpg');
-	background-size: cover;
+	 
 	z-index: 1;
 }
-
+.background-layer-1 img {
+width: 300px;
+height: 300px;
+}
 .background-layer-2 {
-	background: url('./src/img/02.jpg');
-	background-size: cover;
+	 
 	z-index: 2;
 	clip-path: inset(100% 0 0 0);
 	transition: clip-path 0s linear;
 }
-
+.background-layer-2  img {
+	width: 300px;
+	height: 300px;
+	}
 .laser {
 	position: absolute;
 	top: 100%;
