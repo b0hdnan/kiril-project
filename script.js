@@ -76,7 +76,7 @@ function animate() {
 	// Показуємо контент, коли лазер доходить до середини
 	if (laserPosition < 50) {
 			content.style.opacity = '1';
-	} 
+	}
 
 	// Продовжуємо анімацію
 	requestAnimationFrame(animate);
@@ -91,7 +91,7 @@ let scrollTimeout;
 window.addEventListener('scroll', () => {
   // Додаємо клас "scrolling" до body під час прокрутки
   document.body.classList.add('scrolling');
-  
+
   // Видаляємо клас після завершення прокрутки
   clearTimeout(scrollTimeout);
   scrollTimeout = setTimeout(() => {
@@ -108,4 +108,27 @@ const navbarCollapse = document.querySelector('#navbarSupportedContent');
 menuToggle.addEventListener('click', () => {
     menuToggle.classList.toggle('open');
     navbarCollapse.classList.toggle('show'); // Або інший клас, який використовує Bootstrap для відображення меню
+});
+
+
+// loader
+document.addEventListener("DOMContentLoaded", function() {
+  const loader = document.querySelector(".loader");
+
+  // Показати лоадер при завантаженні сторінки
+  loader.style.display = "block";
+
+  // Сховати лоадер після завершення завантаження
+  window.addEventListener("load", function() {
+    loader.style.display = "none";
+  });
+
+  // Показати лоадер при асинхронних запитах (приклад)
+  document.addEventListener("ajaxStart", function() {
+    loader.style.display = "block";
+  });
+
+  document.addEventListener("ajaxComplete", function() {
+    loader.style.display = "none";
+  });
 });

@@ -1,7 +1,9 @@
 @import url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;600;800;900&display=swap);
-*{
+
+* {
 	user-select: none;
 }
+
 body {
 	font-family: 'Roboto', sans-serif !important;
 }
@@ -40,7 +42,36 @@ h1 {
 	font-size: 150px;
 	color: #fff;
 }
+.loader-wrapper{
+	background: #000;
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	z-index: 999999;
+	animation: opacity 3s;
+}
+.loader {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #3498db;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+	z-index: 9999;
+}
 
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+@keyframes opacity {
+  0% { opacity: 1; }
+  100% {  opacity: 0; }
+}
 /* Логотип */
 .logo {
 	height: 60px;
@@ -149,59 +180,63 @@ body.scrolling ::-webkit-scrollbar-thumb {
 
 /* toggler */
 .menu-toggle {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    width: 30px;
-    height: 30px;
-    background: transparent;
-    border: none !important;
-    cursor: pointer;
-    padding: 0;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+	width: 60px;
+	height: 60px;
+	background: transparent;
+	border: none !important;
+	cursor: pointer;
+	padding: 0;
 	box-sizing: border-box;
 	margin-right: 20px;
+	background: #111;
 }
+
 .navbar-toggler:focus {
-    outline: none; /* Прибирає стандартну обводку при фокусі */
-    box-shadow: none; /* Додатково прибирає можливі тіні, які Bootstrap може додавати при фокусі */
-    /* Замість outline та box-shadow ви можете додати власну візуалізацію фокусу, якщо це необхідно для доступності */
+	outline: none;
+	/* Прибирає стандартну обводку при фокусі */
+	box-shadow: none;
+	/* Додатково прибирає можливі тіні, які Bootstrap може додавати при фокусі */
+	/* Замість outline та box-shadow ви можете додати власну візуалізацію фокусу, якщо це необхідно для доступності */
 }
 
 
 .bar {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-    width: 100%;
-    height: 3px;
-    background-color: #fff; /* Або ваш колір */
-    border-radius: 10px;
-    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+	width: 70%;
+	height: 3px;
+	background-color: #fff;
+	/* Або ваш колір */
+	border-radius: 10px;
+	transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
 .menu-toggle.open .bar:nth-child(1) {
 	position: absolute;
-    transform: rotate(45deg);
+	transform: rotate(45deg);
 }
 
 .menu-toggle.open .bar:nth-child(2) {
 	position: relative;
-    opacity: 0;
+	opacity: 0;
 }
 
 .menu-toggle.open .bar:nth-child(3) {
 	position: absolute;
-    transform: rotate(-45deg);
+	transform: rotate(-45deg);
 }
 
 .menu-toggle.open .bar:nth-child(2) {
-    opacity: 0;
-
+	opacity: 0;
+	transform: translateX(-50vw) scaleX(5);
+	border-radius: 0;
 }
 
 .menu-toggle.open .bar:nth-child(3) {
-    transform: rotate(-45deg);
+	transform: rotate(-45deg);
 }
 
 input[type="search"]::-webkit-search-cancel-button {
@@ -272,27 +307,34 @@ footer {
 	left: 0;
 	width: 100%;
 	height: 100%;
- 
+
+
 }
 
 .background-layer-1 {
-	 
+
 	z-index: 1;
 }
+
 .background-layer-1 img {
-width: 300px;
-height: 300px;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
+
 .background-layer-2 {
-	 
+
 	z-index: 2;
 	clip-path: inset(100% 0 0 0);
 	transition: clip-path 0s linear;
 }
-.background-layer-2  img {
-	width: 300px;
-	height: 300px;
-	}
+
+.background-layer-2 img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
 .laser {
 	position: absolute;
 	top: 100%;
@@ -409,12 +451,13 @@ button {
 	letter-spacing: 0%;
 	background: #a3c6d6;
 	border: none;
-	transition: all .3s ease-in-out;
 }
 
-button:hover {
-	background: #00aaff;
-	color: white;
+.logo:hover, button:hover {
+	border: 1px solid white !important;
+	transform: scale(0.9);
+	transition: all .1s ease-in-out !important;
+	color: #111 !important;
 }
 
 /* Анімації */
