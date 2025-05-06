@@ -42,14 +42,6 @@ h1 {
 	font-size: 150px;
 	color: #fff;
 }
-.loader-wrapper{
-	background: #000;
-	width: 100vw;
-	height: 100vh;
-	position: fixed;
-	z-index: 999999;
-	animation: opacity 3s;
-}
 .loader {
   border: 8px solid #f3f3f3;
   border-top: 8px solid #3498db;
