@@ -153,12 +153,11 @@ body.scrolling ::-webkit-scrollbar-thumb {
 	height: 100px !important;
 	top: 0;
 	position: fixed;
-	z-index: 2;
-	padding: 25px;
+	z-index: 1000;
 }
 
 .navbar {
-	background: #ffffff1b !important;
+	background: #000000 !important;
 	line-height: normal !important;
 	border-radius: 0 !important;
 	border: none !important;
@@ -424,7 +423,7 @@ footer {
 	letter-spacing: 0%;
 }
 
-.text {
+.card-text {
 	font-family: Roboto Condensed;
 	font-weight: 500;
 	font-size: 20px;

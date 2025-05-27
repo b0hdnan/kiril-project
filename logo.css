@@ -1,244 +1,285 @@
-/* From Uiverse.io by Smit-Prajapati */
-.parent {
-  width: 150px;
-  height: 150px;
-  perspective: 1000px;
+/* Container Styles */
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+  font-family: "Arial", sans-serif;
+  overflow: visible;
 }
 
-.logo-card {
-	width: 150px;
-  height: 100%;
-  border-radius: 50px;
-  background: linear-gradient(135deg, #00aaff 0%, rgb(54, 65, 58) 100%);
-  transition: all 0.5s ease-in-out;
-  transform-style: preserve-3d;
-  box-shadow: rgba(5, 71, 17, 0) 40px 50px 25px -40px, rgba(5, 71, 17, 0.2) 0px 25px 25px -5px;
-}
-
-.glass {
-  transform-style: preserve-3d;
-  position: absolute;
-  inset: 8px;
-  border-radius: 55px;
-  border-top-right-radius: 100%;
-  background: black;
-  /* -webkit-backdrop-filter: blur(5px);
-  backdrop-filter: blur(5px); */
-  transform: translate3d(0px, 0px, 25px);
-  border-left: 1px solid white;
-  border-bottom: 1px solid white;
-  transition: all 0.5s ease-in-out;
-}
-
-.logo-card .content {
-  padding: 20px 10px 0px 5px;
-  transform: translate3d(0, 0, 26px);
-}
-
-.content .title {
-  display: block;
-  color: #0c0e0d;
-  font-weight: 900;
-  font-size: 20px;
-}
-
-.content .text {
-  display: block;
-  color: rgba(22, 25, 24, 0.765);
-  font-size: 15px;
-  margin-top: 20px;
-}
-
-.bottom {
-  padding: 10px 12px;
-  transform-style: preserve-3d;
-  position: absolute;
-  bottom: -20px;
-  left: 10px;
-  right: 20px;
+/* Button Styles */
+.button-content {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  transform: translate3d(0, 0, 26px);
+  justify-content: center;
+  /* background: linear-gradient(135deg, #6e8efb, #00aaff); */
+  color: white;
+
+  border-radius: 5px;
+  cursor: pointer;
+  transition:
+    background 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+    transform 0.3s ease,
+    box-shadow 0.4s ease;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 10;
+  overflow: hidden;
 }
 
-.bottom .view-more {
+.button-content::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(110, 142, 251, 0.4),
+    rgba(167, 119, 227, 0.4)
+  );
+  filter: blur(15px);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: -1;
+}
+
+.button-content::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  transform: scale(0);
+  transition: transform 0.6s ease-out;
+  z-index: -1;
+}
+
+.button-content:hover::before {
+  opacity: 1;
+}
+
+.button-content:hover::after {
+  transform: scale(1);
+}
+
+.button-content:hover {
+  /* background: linear-gradient(135deg, #00aaff, #6e8efb);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  transform: translateY(-4px) scale(1.03); */
+}
+
+.button-content:active {
+  transform: translateY(-2px) scale(0.98);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+.text {
+  font-size: 18px;
+  font-weight: 600;
+  margin-right: 12px;
+  white-space: nowrap;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: letter-spacing 0.3s ease;
+}
+
+.text img{
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+}
+
+.button-content:hover .text {
+  letter-spacing: 1px;
+}
+
+.share-icon {
+  fill: white;
+  transition:
+    transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+    fill 0.3s ease;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+  margin: 5px;
+}
+
+.button-content:hover .share-icon {
+  transform: rotate(360deg) scale(1.4);
+  fill: #ffffff;
+}
+
+/* Tooltip Styles */
+.tooltip-content {
+  position: absolute;
+  top: 102%;
+  left: 50%;
+  transform: translateX(-50%) scale(0.8);
+  background: #00aaff;
+  border-radius: 5px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+    transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+    visibility 0.5s ease;
+  z-index: 100;
+  pointer-events: none;
+  backdrop-filter: blur(10px);
+  background: rgb(2, 2, 2);
   display: flex;
-  align-items: center;
-  width: 40%;
-  justify-content: flex-end;
-  transition: all 0.2s ease-in-out;
-}
-
-.bottom .view-more:hover {
-  transform: translate3d(0, 0, 10px);
-}
-
-.bottom .view-more .view-more-button {
-  background: none;
-  border: none;
-  color: #161918;
-  font-weight: bolder;
-  font-size: 12px;
-}
-
-.bottom .view-more .svg {
-  fill: none;
-  stroke: #080908;
-  stroke-width: 3px;
-  max-height: 15px;
-}
-
-.bottom .social-buttons-container {
-  display: flex;
-  gap: 10px;
-  transform-style: preserve-3d;
-}
-
-.bottom .social-buttons-container .social-button {
-  width: 30px;
-	height: 30px;
-  aspect-ratio: 1;
   padding: 5px;
-  background: rgb(255, 255, 255);
+  width: 100px;
+
+}
+
+.tooltip-container:hover .tooltip-content {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) scale(1);
+  pointer-events: auto;
+}
+
+/* Social Icons Styles */
+.social-icons {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  border: none;
-  display: grid;
-  place-content: center;
-  box-shadow: rgba(5, 71, 17, 0.5) 0px 7px 5px -5px;
+  background: #f0f0f0;
+  transition:
+    transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+    background 0.3s ease,
+    box-shadow 0.4s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-.bottom .social-buttons-container .social-button:first-child {
-  transition: transform 0.2s ease-in-out 0.4s, box-shadow 0.2s ease-in-out 0.4s;
+.social-icon::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.bottom .social-buttons-container .social-button:nth-child(2) {
-  transition: transform 0.2s ease-in-out 0.6s, box-shadow 0.2s ease-in-out 0.6s;
+.social-icon:hover::before {
+  opacity: 1;
 }
 
-.bottom .social-buttons-container .social-button:nth-child(3) {
-  transition: transform 0.2s ease-in-out 0.8s, box-shadow 0.2s ease-in-out 0.8s;
+.social-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: #333;
+  transition:
+    transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+    fill 0.3s ease;
+  z-index: 1;
+  animation: pulse 3s infinite;
 }
 
-.bottom .social-buttons-container .social-button .svg {
-  width: 15px;
-  fill: #1b3228;
+.social-icon:hover {
+  transform: scale(1.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid;
 }
 
-.bottom .social-buttons-container .social-button:hover {
-  background: black;
+.social-icon:active {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 
-.bottom .social-buttons-container .social-button:hover .svg {
+.social-icon:hover svg {
+  transform: scale(1.2);
   fill: white;
 }
 
-.bottom .social-buttons-container .social-button:active {
-  background: rgb(255, 234, 0);
+.social-icon.insta:hover {
+  background: linear-gradient(135deg, #1da1f2, #1a91da);
 }
 
-.bottom .social-buttons-container .social-button:active .svg {
-  fill: black;
+/* Animation for Pulse Effect */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(110, 142, 251, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 20px rgba(110, 142, 251, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(110, 142, 251, 0);
+  }
 }
 
-.logo {
+.button-content {
+  animation: pulse 3s infinite;
+  padding: 5px;
+}
+
+/* Hover Ripple Effect */
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+.button-content::before {
+  content: "";
   position: absolute;
-  right: 0;
-  top: 0;
-  transform-style: preserve-3d;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: inherit;
+  transform: scale(0);
+  opacity: 0;
 }
 
-.logo .circle {
-  display: block;
+.button-content:active::before {
+  animation: ripple 0.6s linear;
+}
+
+/* Tooltip Arrow */
+.tooltip-content::before {
+  content: "";
   position: absolute;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  top: 0;
-  right: 0;
-  box-shadow: rgba(100, 100, 111, 0.2) -10px 10px 20px 0px;
-  -webkit-backdrop-filter: blur(5px);
-  backdrop-filter: blur(5px);
-  background: #389549;
-  transition: all 0.5s ease-in-out;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 0 10px 10px 10px;
+  border-style: solid;
+  border-color: transparent transparent rgba(255, 255, 255, 0.9) transparent;
+  filter: drop-shadow(0 -3px 3px rgba(0, 0, 0, 0.1));
 }
 
-.logo .circle1 {
-  width: 75px;
-  transform: translate3d(0, 0, 20px);
-  top: 8px;
-  right: 8px;
+/* Accessibility */
+.button-content:focus {
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgba(110, 142, 251, 0.5),
+    0 8px 15px rgba(0, 0, 0, 0.1);
 }
 
-.logo .circle2 {
-  width: 60px;
-  transform: translate3d(0, 0, 40px);
-  top: 13px;
-  right: 13px;
-  -webkit-backdrop-filter: blur(1px);
-  backdrop-filter: blur(1px);
-  transition-delay: 0.4s;
+.button-content:focus:not(:focus-visible) {
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
 }
 
-.logo .circle3 {
-  width: 50px;
-  transform: translate3d(0, 0, 60px);
-  top: 18px;
-  right: 18px;
-  transition-delay: 0.8s;
-}
-
-.logo .circle4 {
-  width: 40px;
-  transform: translate3d(0, 0, 80px);
-  top: 23px;
-  right: 23px;
-  transition-delay: 1.2s;
-}
-
-.logo .circle5 {
-  width: 30px;
-  transform: translate3d(0, 0, 100px);
-  top: 28px;
-  right: 28px;
-  display: grid;
-  place-content: center;
-  transition-delay: 1.6s;
-}
-
-.logo .circle5 .svg {
-  width: 20px;
-  fill: white;
-}
-
-.parent:hover .logo-card {
-  transform: rotate3d(1, 1, 0, 30deg);
-  box-shadow: rgba(5, 71, 17, 0.3) 30px 50px 25px -40px, rgba(5, 71, 17, 0.1) 0px 25px 30px 0px;
-}
-
-.parent:hover .logo-card .bottom .social-buttons-container .social-button {
-  transform: translate3d(0, 0, 50px);
-  box-shadow: rgba(5, 71, 17, 0.2) -5px 20px 10px 0px;
-}
-
-.parent:hover .logo-card .logo .circle2 {
-  transform: translate3d(0, 0, 60px);
-}
-
-.parent:hover .logo-card .logo .circle3 {
-  transform: translate3d(0, 0, 80px);
-}
-
-.parent:hover .logo-card .logo .circle4 {
-  transform: translate3d(0, 0, 100px);
-}
-
-.parent:hover .logo-card .logo .circle5 {
-  transform: translate3d(0, 0, 120px);
-}
-.glass{
-	overflow: hidden;
-}
-.glass img{
-	width: 90%;
-	height: 90%;
-}
